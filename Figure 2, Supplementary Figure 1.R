@@ -118,10 +118,10 @@ final_df <- final_df[-1, ]
 
 
 library(pheatmap)
-library(psych) # 用于计算相关性和显著性
+library(psych) 
 my_cols <- c(
-  Control = "#4DBBD5",   # 蓝色
-  AD      = "#E64B35"    # 红色
+  Control = "#4DBBD5",   
+  AD      = "#E64B35"   
 )
 
 final_genes <- c("NRXN1", "SYN2", "TRIM36", "FAR2")
@@ -145,12 +145,12 @@ sig_text <- matrix(sapply(p_mat, get_sig_text), nrow = nrow(p_mat))
 
 pdf("Figure 2H.pdf", width = 5, height = 4)
 pheatmap(cor_mat,
-         display_numbers = sig_text, # 在方格中显示星号
+         display_numbers = sig_text, 
          number_color = "black",
          fontsize_number = 12,
-         color = colorRampPalette(c("#2196F3", "white", "#F44336"))(100), # 蓝白红配色
-         cluster_cols = FALSE, # 指标通常按临床逻辑排列，不建议聚类
-         cluster_rows = TRUE,  # 基因可以聚类
+         color = colorRampPalette(c("#2196F3", "white", "#F44336"))(100),
+         cluster_cols = FALSE, 
+         cluster_rows = TRUE,  
          main = "Figure 2H",
          angle_col = 45)
 dev.off()
