@@ -26,7 +26,6 @@ my_colors <- c("HA" = "#3A86C8", "MCI" = "#E99B26", "AD" = "#D9383A")
 expr_cols <- c("#E5E8E8", "#AED6F1", "#3498DB", "#9B59B6", "#7D3C98")
 
 cat("\n[STEP 2] Loading RDS raw dataset...\n")
-hip_1 <- readRDS("D:/Biofo/GSE268609/hip_1.rds")
 hip_1$Celltype <- hip_1$Cluster
 Idents(hip_1) <- "Celltype"
 hip_1$Group <- droplevels(hip_1$Group)
@@ -371,7 +370,7 @@ confint(model_far2)
 # GroupMCI    -3.930440e-03 -0.0025889492
 # GroupHA     -2.159690e-03 -0.0009959224
 
-# 多变量回归进一步支持FAR2对NRXN1的弱负向调控作用
+# ====================================================
 model2 <- lm(FAR2 ~ NRXN1 + Group,data = df2)
 print(summary(model2))
 # Call:
@@ -484,7 +483,7 @@ fig4A <- DimPlot(Astrocytes_sub, group.by = "Celltype", reduction = "umap", cols
   theme(legend.position = "none") + 
   unified_theme
 ggsave(file="fig4A_Astrocytes Subset.pdf", fig4A, width = 8,height = 6)
-ggsave(file="fig4A_Astrocytes Subset.png", fig4A, width = 8,height = 6,dpi = 600)
+
 
 df_nr <- data.frame(NRXN1 = FetchData(Astrocytes_sub, vars = nrxn1_ens)[,1], 
                     Group = Astrocytes_sub$Group)
@@ -535,10 +534,8 @@ fig4B <- ggplot(p1d_long, aes(x = Group, y = Expression, fill = Group)) +
     title = "B. Gene Expression Levels in Astrocytes",
     y = "Log-Normalized Expression Intensity")+ 
   unified_theme
-
-# 保存
 ggsave(file="fig4B_Astrocytes Gene Expression.pdf", fig4B, width = 8,height = 6)
-ggsave(file="fig4B_Astrocytes Gene Expression.png", fig4B, width = 8,height = 6,dpi = 600)
+
 
 
 fig4C <- FeaturePlot(Astrocytes_sub, features = nrxn1_ens) +
@@ -547,7 +544,7 @@ fig4C <- FeaturePlot(Astrocytes_sub, features = nrxn1_ens) +
   theme(legend.position = "right") +
   unified_theme
 ggsave(file="fig4C_Astrocytes NRXN1 Spatial Expression Profile.pdf", fig4C, width = 8,height = 6)
-ggsave(file="fig4C_Astrocytes NRXN1 Spatial Expression Profile.png", fig4C, width = 8,height = 6,dpi = 600)
+
 
 df_nr <- data.frame(NRXN1 = FetchData(Astrocytes_sub, vars = nrxn1_ens)[,1], Group = Astrocytes_sub$Group) 
 df_nr$Group <- factor(df_nr$Group, levels = c("HA", "MCI", "AD")) 
@@ -574,9 +571,8 @@ p_heat <- pheatmap(
   main = "D. NRXN1-Associated Profiles",
   silent = TRUE)
 fig4D <- patchwork::wrap_elements(p_heat$gtable) # 严密封装进入拼图
-# 保存
 ggsave(file="fig4D_Astrocytes NRXN1-Associated Profiles.pdf", fig4D, width = 8,height = 6)
-ggsave(file="fig4D_Astrocytes NRXN1-Associated Profiles.png", fig4D, width = 8,height = 6,dpi = 600)
+
 
 plot_df_4 <- rbind(head(cor_wide, 10), tail(cor_wide, 10))
 plot_df_4$Direction <- ifelse(plot_df_4$Delta_AD_HA > 0, "Accelerated in AD", "Suppressed in AD")
@@ -591,7 +587,6 @@ fig4E <- ggplot(plot_df_4, aes(x = reorder(Pathway, Delta_AD_HA), y = Delta_AD_H
   unified_theme +
   theme(legend.position = "bottom", legend.title = element_text(size = 9), legend.text = element_text(size = 8))
 ggsave(file="fig4E_Astrocytes NRXN1-Associated Metabolic Rewiring Hierarchy.pdf", fig4E, width = 8,height = 6)
-ggsave(file="fig4E_Astrocytes NRXN1-Associated Metabolic Rewiring Hierarchy.png", fig4E, width = 8,height = 6,dpi = 600)
 
 
 fig4F <- ggplot(cor_wide, aes(x = HA, y = AD)) +
@@ -609,7 +604,7 @@ fig4F <- ggplot(cor_wide, aes(x = HA, y = AD)) +
   unified_theme + 
   theme(legend.position = "right", legend.title = element_text(size = 12), legend.text = element_text(size = 12))
 ggsave(file="fig4F_Astrocytes NRXN1-Associated Metabolic Rewiring Hierarchy.pdf", fig4F, width = 10,height = 6)
-ggsave(file="fig4F_Astrocytes NRXN1-Associated Metabolic Rewiring Hierarchy.png", fig4F, width = 10,height = 6,dpi = 600)
+
  
 ether_auc <- GetAssayData(Astrocytes_sub, assay = "KEGG_AUC")["Ether lipid metabolism", ]
 df_meta <- data.frame(
@@ -626,7 +621,7 @@ fig4G <- ggplot(df_meta, aes(x = nrxn1, y = Ether, color = Group)) +
   unified_theme +      
   theme(legend.position = "right", legend.title = element_text(size = 9), legend.text = element_text(size = 8))
 ggsave(file="fig4G_Astrocytes NRXN1 & Ether Lipid Coupling.pdf", fig4G, width = 8,height = 6)
-ggsave(file="fig4G_Astrocytes NRXN1 & Ether Lipid Coupling.png", fig4G, width = 8,height = 6,dpi = 600)
+
 
 
 trend_df <- as.data.frame(trend_result$emtrends) %>%
@@ -658,7 +653,7 @@ fig4H <- ggplot(trend_df, aes(x = Estimate, y = Group)) +
     plot.margin = margin(10, 20, 10, 10))
 fig4H
 ggsave(file="fig4H_Astrocytes NRXN1 & Ether Lipid Estimated marginal trends.pdf", fig4H, width = 7,height = 6)
-ggsave(file="fig4H_Astrocytes NRXN1 & Ether Lipid Estimated marginal trends.png", fig4H, width = 7,height = 6,dpi = 600)
+
 
 
 
@@ -797,6 +792,6 @@ Supp_Fig6 <- (pS6A | pS6B) / (pS6C | pS6D) / pS6E +
     )
   )
 ggsave("Supplementary_Figure_S6_FAR2.pdf", Supp_Fig6, width=12, height=12)
-ggsave("Supplementary_Figure_S6_FAR2.png", Supp_Fig6, width=12, height=12, dpi=600)
+
 
 
