@@ -14,7 +14,7 @@ plink <- "plink.exe"
 bfile <- "EUR"
 out_prefix <- file.path(workingDir, "NRXN1_region")
 
-vcf_file <- "D:/Biofo/MR/NRXN1/eqtl-a-ENSG00000179915.vcf.gz"
+vcf_file <- "./eqtl-a-ENSG00000179915.vcf.gz"
 indexTabix(vcf_file, format = "vcf")
 vcf <- readVcf(vcf_file, genome = "GRCh37")
 dat <- gwasvcf::vcf_to_tibble(vcf) %>% as.data.frame()
