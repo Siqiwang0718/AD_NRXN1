@@ -359,9 +359,8 @@ Fig6C <- ggplot(kegg_plot, aes(x = GeneRatio_num, y = Description)) +
        title = "D. KEGG pathway") +
   unified_theme +
   theme(panel.grid = element_blank())
-# 保存
 ggsave(file="./Fig6C-KEGG Pathway.pdf", Fig6C, width = 8,height = 8)
-ggsave(file="./Fig6C-KEGG Pathway.png", Fig6C, width = 8,height = 8,dpi = 600)
+
 
 ### GO Plot========================================================================
 library(clusterProfiler)
