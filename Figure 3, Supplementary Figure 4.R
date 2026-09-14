@@ -10,8 +10,8 @@ library(TwoSampleMR)
 library(patchwork)
 library(Rfast)
 
-plink <- "E:/software/plink/plink.exe"
-bfile <- "D:/1000G_EUR/EUR"
+plink <- "plink.exe"
+bfile <- "EUR"
 out_prefix <- file.path(workingDir, "NRXN1_region")
 
 vcf_file <- "D:/Biofo/MR/NRXN1/eqtl-a-ENSG00000179915.vcf.gz"
@@ -186,7 +186,7 @@ coloc_res$summary
 #6.095000e+03 5.146210e-41 9.097064e-01 4.484745e-42 7.926675e-02 1.102688e-02 
 
 
-### MR分析
+### MR
 mr_res <- mr(dat_harmonised)
 mr_res
 # id.exposure         id.outcome                                      outcome         exposure                    method nsnp          b           se         pval
