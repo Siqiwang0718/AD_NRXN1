@@ -149,7 +149,6 @@ c("NRXN1","SYN2","FAR2","TRIM36") %in% rownames(sc_MCI)
 c("NRXN1","SYN2","FAR2","TRIM36") %in% rownames(sc_HA)
 
 
-##### AD样本中虚拟过表达NRXN1=================================================
 # =========================
 # Step 1: Construct GRN
 # =========================
