@@ -138,7 +138,7 @@ Fig5A <- VlnPlot(astro_sub, features = "ENSG00000179915", group.by = "NRXN1_grou
   unified_theme +
   theme(legend.position="none")
 ggsave(file="fig5A_Distribution of NRXN1 expression.pdf", Fig5A, width = 8,height = 6)
-ggsave(file="fig5A_Distribution of NRXN1 expression.png", Fig5A, width = 8,height = 6,dpi = 600)
+
 
 # ============================================
 # Fig5B: Astrocyte DE volcano（NRXN1-high vs low）
@@ -163,9 +163,7 @@ Fig5B <- Fig5B +
   theme(axis.title.x = element_text(face = "bold", size = 11, color = "black"),
     axis.title.y = element_text(face = "bold", size = 11, color = "black"),
     legend.position = "top")
-# 保存
 ggsave(file="fig5B_NRXN1-high vs NRXN1-low Astrocytes.pdf", Fig5B, width = 8,height = 6)
-ggsave(file="fig5B_NRXN1-high vs NRXN1-low Astrocytes.png", Fig5B, width = 8,height = 6,dpi = 600)
 
 # ============================================
 # Fig5C: Ligand activity ranking (barplot)（NicheNet核心）
@@ -176,9 +174,8 @@ Fig5C <- ligand_act %>% arrange(desc(pearson)) %>% head(20) %>%
   scale_fill_gradientn(colours = c("#FDEDEC", "#E74C3C", "#7B241C")) +
   labs(title = "C. Ligand Activity Ranking", fill = "AUROC", y = "Pearson Score", x = NULL) +
   unified_theme
-# 保存
 ggsave(file="fig5C_Ligand Activity Ranking.pdf", Fig5C, width = 8,height = 6)
-ggsave(file="fig5C_Ligand Activity Ranking.png", Fig5C, width = 8,height = 6,dpi = 600)
+
 
 # ============================================
 # Fig5D: Ligand-Receptor network
@@ -204,7 +201,7 @@ Fig5D <- ggraph(g, layout = "fr") +
         legend.position = "top", legend.title = element_text(face = "bold", size = 10),
         legend.text = element_text(size = 10, color = "black"))
 ggsave(file="fig5D_Ligand-Receptor Network.pdf", Fig5D, width = 15,height = 6)
-ggsave(file="fig5D_Ligand-Receptor Network.png", Fig5D, width = 15,height = 6,dpi = 600)
+
 
 # ============================================
 # Fig5E: Neuron subtype bubble plot (Ligand activity across subtypes)
@@ -219,5 +216,5 @@ Fig5E <- ggplot(bubble_df, aes(x = Ligand, y = Subtype)) +
   labs(title = "E. Ligand Activity Across Neuronal Subtypes", color = "Pearson", size = "|Pearson|") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ggsave(file="fig5E_Ligand Activity Across Neuronal Subtypes.pdf", Fig5E, width = 15,height = 4)
-ggsave(file="fig5E_Ligand Activity Across Neuronal Subtypes.png", Fig5E, width = 15,height = 4,dpi = 600)
+
 
