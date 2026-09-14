@@ -4,20 +4,18 @@ library(biomaRt)
 library(org.Hs.eg.db)
 library(AnnotationDbi)
 library(limma)
-#参数设置
-treatment=c("age", "braak", "mmse", "nft", "pmi") #选择展示的行为学结果
+
+treatment=c("age", "braak", "mmse", "nft", "pmi") 
 fpkm=read.csv("exp.csv",header=T,row.names=1)
 dim(fpkm)
 names(fpkm)
-# 转置后数据
+
 datExpr0 = as.data.frame(t(fpkm))
-############### 读取临床信息 ###############
 behavior = read.table("WGCNA_cli.txt",
                       header = TRUE,
                       sep = "\t",
                       check.names = FALSE,
                       row.names = 1)
-# 检查数据质量
 gsg = goodSamplesGenes(datExpr0, verbose = 3)
 if (!gsg$allOK)
 {datExpr0 = datExpr0[gsg$goodSamples, gsg$goodGenes]}
